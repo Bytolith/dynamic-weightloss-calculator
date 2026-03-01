@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dynamic Weight Calculator</title>
+        <link rel="stylesheet" href="css/style.css">
+    </head>
+    <body>
+        <header>
+            <h1>Dynamic Weight Calculator</h1>
+            <p>Lorem ipsum dolor sit amet consectetur adipsicing elit. Voluptas, voluptate.</p>
+        </header>
+
+        <main class="container">
+            <!-- Stats -->
+            <div class="stats_section">
+                <!-- gender -->
+                <label>Gender:</label>
+                <div class="gender">
+                    <button class="gender-button active" id="buttonMale" onclick="setGender('male')">Male</button>
+                    <button class="gender-button" id="buttonFemale" onclick="setGender('female')">Female</button>
+                </div>
+                <!-- age -->
+                <label>Age:</label>
+                <div class="age">
+                    <input type="range" id="ageSlider" min="15" max="80" step="1" value="25">
+                    <span id="ageVal">35</span><span> yrs</span>
+                </div>
+                <!-- height -->
+                <label>Height</label>
+                <div class="height">
+                    <div>
+                        <label>Feet</label>
+                        <input type="number" id="heightFt" min="3" max="7" value="6" oninput="updateHeight()">
+                    </div>
+                    <div>
+                        <label>Inches</label>
+                        <input type="number" id="heightIn" min="0" max="11" value="0" oninput="updateHeight()">
+                    </div>
+                </div>
+            </div>
+            <!-- Weight Goals -->
+                <!-- current weight -->
+                <!-- goal weight -->
+            <div></div>
+            <!-- Daily Stats-->
+                <!-- Calorie Intake -->
+                <!-- Walk time -->
+                <!-- Walk Speed -->
+            <div></div>
+        </main>
+        <script src="js/script.js"></script>
+    </body>
+</html>

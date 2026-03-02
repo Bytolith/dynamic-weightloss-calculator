@@ -66,7 +66,7 @@ body {
 .inline-field {
     display: inline-flex;
     gap: 10px;
-    align-items: center; /* optional, keeps items vertically centred */
+    align-items: center;
 }
 
 
@@ -84,7 +84,7 @@ body {
     display: inline-flex;
     align-items: center;
     gap: 10px;
-    min-height: var(--input-field-height); /* added min-height property */
+    min-height: var(--input-field-height);
 }
 
 .input-with-unit input {
@@ -92,10 +92,16 @@ body {
     min-width: 0;
 }
 
+
+
+
 /* Utility */
 .grid-5 { display: grid; grid-template-columns: repeat(5,1fr); gap: 14px;}
 .grid-4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px;}
 .grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px;}
 .grid-2 { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px;}
 .span-2 { grid-column: span 2;}
+.char-6 {flex-basis: 6ch;}
+.char-9 {flex-basis: 9ch;}
+.char-12 {flex-basis: 12ch;}
 .center-text {text-align: center;}

@@ -44,7 +44,6 @@ function MifflinStJeor(gender, age, height, weight) {
     return bmr;
 }
 
-// let debounceTimer = null;
 function setGender(gender) {
     assert(typeof gender === "string", "Gender must be a string.");
 
@@ -62,17 +61,19 @@ function updateHeight(){
     height = val;
 }
 
-function initAgeSlider(){
-    const slider = document.getElementById('ageSlider');
-    const display = document.getElementById('ageVal');
-
+function initSlider(sliderId, displayId, unit, callback){
+    const slider = document.getElementById(sliderId);
+    const display = document.getElementById(displayId);
     slider.addEventListener("input", function(){
         let sliderVal = parseInt(slider.value);
-
-        age = sliderVal;
-        display.textContent = sliderVal + " yrs";
+        callback(sliderVal);
+        display.textContent = sliderVal + " " + unit;
     })
 }
 
-initAgeSlider();
-
+initSlider('ageSlider', 'ageVal', 'yrs', function(val){age = val});
+initSlider('currentWeight', 'currentWeightValue', 'lbs', function(val){currentWeight = val});
+initSlider('goalWeight', 'goalWeightValue', 'lbs', function(val){goalWeight = val});
+initSlider('calorieIntake', 'calorieIntakeValue', 'kcal', function(val){calorieIntake = val});
+initSlider('walkTime', 'walkTimeValue', 'min', function(val){walkTime = val});
+initSlider('walkSpeed', 'walkSpeedValue', 'mph', function(val){walkSpeed = val});

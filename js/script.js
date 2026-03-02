@@ -5,6 +5,10 @@ let height = 72;
 let currentWeight = 220;
 let goalWeight = 180;
 
+let calorieIntake = 2000;
+let walkTime = 60;
+let walkSpeed = 3;
+
 // Data for Mifflin-St Jeor Equation (BMR)
 // Equation: Women: 10*kg + 6.25*cm - 5*age - 161
 // Equation:   Men: 10*kg + 6.25*cm - 5*age + 5
@@ -49,18 +53,6 @@ function setGender(gender) {
     document.getElementById('buttonFemale').classList.toggle('active', !is_male);
 }
 
-function initAgeSlider(){
-    const slider = document.getElementById('ageSlider');
-    const display = document.getElementById('ageVal');
-
-    let sliderVal = parseInt(slider.value);
-
-    slider.addEventListener("input", function(){
-        age = sliderVal;
-        display.textContent = sliderVal;
-    })
-}
-
 function updateHeight(){
     const feet = parseInt(document.getElementById('heightFt').value);
     const inches = parseInt(document.getElementById('heightIn').value);
@@ -68,6 +60,18 @@ function updateHeight(){
     let val = (feet * 12) + inches;
 
     height = val;
+}
+
+function initAgeSlider(){
+    const slider = document.getElementById('ageSlider');
+    const display = document.getElementById('ageVal');
+
+    slider.addEventListener("input", function(){
+        let sliderVal = parseInt(slider.value);
+
+        age = sliderVal;
+        display.textContent = sliderVal + " yrs";
+    })
 }
 
 initAgeSlider();

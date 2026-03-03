@@ -7,9 +7,39 @@ let height = 72;
 let currentWeight = 220;
 let goalWeight = 180;
 
-let calorieIntake = 2000;
+let calorieIntake = 1500;
 let walkTime = 60; 
-let walkSpeed = 3;
+let walkSpeed = 1.5;
+
+const ctx = document.getElementById('myChart').getContext('2d');
+const chart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: [],
+        datasets: [{
+            label: 'Weight (lbs)',
+            data: [],
+            borderColor: '#4ade80',
+            backgroundColor: 'rgba(74, 222, 128, 0.2)',
+            tension: 0.3,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        plugins: {
+            legend: { display: false }
+        },
+        scales: {
+            x: {
+                ticks: { color: 'white' }
+            },
+            y: {
+                ticks: { color: 'white' }
+            }
+        }
+    }
+});
 
 function MifflinStJeor(gender, age, height, weight) {
     utils.assert(typeof gender === "string", "Gender must be a string.");
@@ -36,6 +66,10 @@ function LudlowWeyand(speed, height, weight, time) {
     utils.assert(typeof weight === "number" && weight >= 0, "Weight must be a non-negative number.");
     utils.assert(typeof time === "number" && time >= 0, "Time must be a non-negative number.");
 
+    if(speed == 0 || time == 0){
+        return 0;
+    }
+
     const speed_mps = utils.mphToMps(speed);
     const height_m = utils.inchesToMeters(height);
     const weight_kg = utils.poundsToKilograms(weight);
@@ -49,17 +83,21 @@ function LudlowWeyand(speed, height, weight, time) {
     return caloriesBurned;
 }
 
-function ACSMWalkingCalories(speedMph, weightLbs, timeMin, grade = 0) {
-    utils.assert(typeof speedMph === "number" && speedMph >= 0, "speedMph must be a non-negative number.");
-    utils.assert(typeof weightLbs === "number" && weightLbs >= 0, "weightLbs must be a non-negative number.");
-    utils.assert(typeof timeMin === "number" && timeMin >= 0, "timeMin must be a non-negative number.");
+function ACSMWalkingCalories(speed, weight, time, grade = 0) {
+    utils.assert(typeof speed === "number" && speed >= 0, "speedMph must be a non-negative number.");
+    utils.assert(typeof weight === "number" && weight >= 0, "weightLbs must be a non-negative number.");
+    utils.assert(typeof time === "number" && time >= 0, "timeMin must be a non-negative number.");
     utils.assert(typeof grade === "number" && grade >= 0, "grade must be a non-negative number.");
 
-    const weightKg = utils.poundsToKilograms(weightLbs);
-    const speed_m_per_min = utils.mphToMps(speedMph) * 60;
+    if(speed == 0 || time == 0){
+        return 0;
+    }
+
+    const weightKg = utils.poundsToKilograms(weight);
+    const speed_m_per_min = utils.mphToMps(speed) * 60;
     const vo2 = 3.5 + 0.1 * speed_m_per_min + 1.8 * speed_m_per_min * grade;
     const kcalPerMin = vo2 * weightKg * 0.005;
-    return kcalPerMin * timeMin;
+    return kcalPerMin * time;
 }
 
 
@@ -81,6 +119,8 @@ function updateResults(){
     walkingCaloriesBurnedValue.textContent = walkingCaloriesBurned.toFixed(0) + " kcal";
     totalCaloriesBurnedValue.textContent = totalCaloriesBurned.toFixed(0) + " kcal";
     netCaloriesValue.textContent = netCalories.toFixed(0) + " kcal";
+
+    updateChart();
 }
 
 
@@ -106,6 +146,48 @@ function updateHeight(){
     updateResults();
 }
 
+function generateChartData() {
+    const data = [];
+
+    const startWeight = Number(currentWeight);
+    const targetWeight = Number(goalWeight);
+    const maxDays = 3650;
+    let cumulativeCaloriesDeficit = 0;
+
+    for (let day = 0; day < maxDays; day++) {
+        const currentEstimate = startWeight - (cumulativeCaloriesDeficit / 3500);
+        data.push(Number(currentEstimate.toFixed(2)));
+
+        if (currentEstimate <= targetWeight) {
+            break;
+        }
+
+        // daily bookkeeping
+        const bmr = MifflinStJeor(gender, age, height, currentEstimate);
+        const walkingCalories = ACSMWalkingCalories(walkSpeed, currentEstimate, walkTime);
+        const totalCaloriesBurnedToday = bmr + walkingCalories;
+
+        const netCalories = totalCaloriesBurnedToday - calorieIntake;
+        if (netCalories <= 0) {
+            console.warn('Simulation stopped: no caloric deficit on day', day + 1);
+            break;
+        }
+
+        cumulativeCaloriesDeficit += netCalories;
+    }
+
+    return data;
+}
+
+function updateChart() {
+    const chartData = generateChartData();
+    chart.data.labels = chartData.map((_, i) => `Day ${i + 1}`);
+    chart.data.datasets[0].data = chartData;
+    chart.update();
+}
+
+updateChart();
+
 window.setGender = setGender;
 window.updateHeight = updateHeight;
 
@@ -115,4 +197,5 @@ utils.initSlider('goalWeight', 'goalWeightValue', 'lbs', false, function(val){go
 utils.initSlider('calorieIntake', 'calorieIntakeValue', 'kcal', false, function(val){calorieIntake = val; updateResults()});
 utils.initSlider('walkTime', 'walkTimeValue', 'min', false, function(val){walkTime = val; updateResults()});
 utils.initSlider('walkSpeed', 'walkSpeedValue', 'mph', true, function(val){walkSpeed = val; updateResults()});
+
 

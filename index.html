@@ -9,88 +9,114 @@
     <body>
     <div class="container">
         <header>
-            <h1>Dynamic Weight Calculator</h1>
-            <p>Lorem ipsum dolor sit amet consectetur adipsicing elit. Voluptas, voluptate.</p>
+            <h1 class="center-text">Dynamic Weight Calculator</h1>
         </header>
 
         <main>
-            <!-- Stats -->
-            <label class="section-label">YOUR STATS</label>
-            <div class="stats-section grid-4">
-                <!-- gender -->
-                <div class="field">
-                    <label class="subsection-label">Gender:</label>
-                    <div class="input-with-unit">
-                        <button class="gender-button active" id="buttonMale" onclick="setGender('male')">Male</button>
-                        <button class="gender-button" id="buttonFemale" onclick="setGender('female')">Female</button>
+            <div>
+                <!-- Stats -->
+                <label class="section-label">YOUR STATS</label>
+                <div class="stats-section grid-4">
+                    <!-- gender -->
+                    <div class="field">
+                        <label class="subsection-label">Gender:</label>
+                        <div class="input-with-unit">
+                            <button class="gender-button active" id="buttonMale" onclick="setGender('male')">Male</button>
+                            <button class="gender-button" id="buttonFemale" onclick="setGender('female')">Female</button>
+                        </div>
+                    </div>
+                    <!-- age -->
+                    <div class="field">
+                        <label class="subsection-label">Age:</label>
+                        <div class="input-with-unit">
+                            <input type="range" id="ageSlider" min="15" max="80" step="1" value="25">
+                            <span id="ageVal" class="char-6 center-text">25 yrs</span>
+                        </div>
+                    </div>
+                    <!-- height -->
+                    <div class="field span-2">
+                        <label class="subsection-label">Height:</label>
+                        <div class="input-with-unit">
+                            <input type="number" id="heightFt" min="3" max="7" value="6" oninput="updateHeight()">
+                            <span>Ft</span>
+                            <input type="number" id="heightIn" min="0" max="11" value="0" oninput="updateHeight()">
+                            <span>In</span>
+                        </div>
                     </div>
                 </div>
-                <!-- age -->
-                <div class="field">
-                    <label class="subsection-label">Age:</label>
-                    <div class="input-with-unit">
-                        <input type="range" id="ageSlider" min="15" max="80" step="1" value="25">
-                        <span id="ageVal" class="char-6 center-text">35 yrs</span>
+                <!-- Weight Goals -->
+                <label class="section-label">WEIGHT GOALS</label>
+                <div class ="weight-goals grid-2">
+                    <!-- current weight -->
+                    <div class="field">
+                        <label class="subsection-label">Current Weight:</label>
+                        <div class="input-with-unit">
+                            <input type="range" id="currentWeight" min="50" max="400" value="220">
+                            <span id ="currentWeightValue" class="char-6 center-text">220 lbs</span>
+                        </div>
+                    </div>
+                    <!-- goal weight -->
+                    <div class="field">
+                        <label class="subsection-label">Goal Weight:</label>
+                        <div class="input-with-unit">
+                            <input type="range" id="goalWeight" min="50" max="500" value="180">
+                            <span id ="goalWeightValue" class="char-6 center-text">180 lbs</span>
+                        </div>
                     </div>
                 </div>
-                <!-- height -->
-                <div class="field span-2">
-                    <label class="subsection-label">Height:</label>
-                    <div class="input-with-unit">
-                        <input type="number" id="heightFt" min="3" max="7" value="6" oninput="updateHeight()">
-                        <span>Ft</span>
-                        <input type="number" id="heightIn" min="0" max="11" value="0" oninput="updateHeight()">
-                        <span>In</span>
+                <!-- Daily Stats-->
+                <label class="section-label">DAILY STATS</label>
+                <div class="daily-stats grid-3">
+                    <div class="field">
+                        <label class="subsection-label">Calorie Intake:</label>
+                        <div class="input-with-unit">
+                            <input type="range" id="calorieIntake" min="0" max="4000" value="2000">
+                            <span id="calorieIntakeValue" class="char-9 center-text">2000 kcal</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="subsection-label">Walk Time:</label>
+                        <div class="input-with-unit">
+                            <input type="range" id="walkTime" min="0" max="720" step="5" value="60">
+                            <span id="walkTimeValue" class="char-9 center-text">60 min</span>
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label class="subsection-label">Walk Speed:</label>
+                        <div class="input-with-unit">
+                            <input type="range" id="walkSpeed" min="0" max="5" step="0.5" value="3">
+                            <span id="walkSpeedValue" class="char-7 center-text">3.0 mph</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <!-- Weight Goals -->
-            <label class="section-label">WEIGHT GOALS</label>
-            <div class ="weight-goals grid-2">
-                <!-- current weight -->
-                <div class="field">
-                    <label>Current Weight:</label>
-                    <div class="input-with-unit">
-                        <input type="range" id="currentWeight" min="50" max="400" value="220">
-                        <span id ="currentWeightValue" class="char-6 center-text">220 lbs</span>
+            <div>
+                <!-- Results -->
+                <label class="section-label">RESULTS</label>
+                <div class="results grid-4">
+                    <!-- Resting BMR -->
+                    <div class="field">
+                        <label class="subsection-label">Base BMR:</label>
+                        <span id="restingBMRValue" class="char-9 center-text">0 kcal</span>
                     </div>
-                </div>
-                <!-- goal weight -->
-                <div class="field">
-                    <label>Goal Weight:</label>
-                    <div class="input-with-unit">
-                        <input type="range" id="goalWeight" min="50" max="500" value="180">
-                        <span id ="goalWeightValue" class="char-6 center-text">180 lbs</span>
+                    <!-- Walking Calories Burned -->
+                    <div class="field">
+                        <label class="subsection-label">Walking Calories Burned:</label>
+                        <span id="walkingCaloriesBurnedValue" class="char-9 center-text">0 kcal</span>
                     </div>
-                </div>
-            </div>
-            <!-- Daily Stats-->
-            <label class="section-label">DAILY STATS</label>
-            <div class="daily-stats grid-3">
-                <div class="field">
-                    <label>Calorie Intake:</label>
-                    <div class="input-with-unit">
-                        <input type="range" id="calorieIntake" min="0" max="4000" value="2000">
-                        <span id="calorieIntakeValue" class="char-9 center-text">2000 kcal</span>
+                    <!-- Total Calories Burned -->
+                    <div class="field">
+                        <label class="subsection-label">Total Calories Burned:</label>
+                        <span id="totalCaloriesBurnedValue" class="char-9 center-text">0 kcal</span>
                     </div>
-                </div>
-                <div class="field">
-                    <label>Walk Time:</label>
-                    <div class="input-with-unit">
-                        <input type="range" id="walkTime" min="0" max="720" value="60">
-                        <span id="walkTimeValue" class="char-9 center-text">60 min</span>
+                    <!-- Net Calories -->
+                    <div class="field">
+                        <label class="subsection-label">Net Caloric Deficit:</label>
+                        <span id="netCaloriesValue" class="char-9 center-text">0 kcal</span>
                     </div>
-                </div>
-                <div class="field">
-                    <label>Walk Speed:</label>
-                    <div class="input-with-unit">
-                        <input type="range" id="walkSpeed" min="0" max="15" step="0.1" value="3">
-                        <span id="walkSpeedValue" class="char-6 center-text">3 mph</span>
-                    </div>
-                </div>
             </div>
         </main>
     </div>
-    <script src="js/script.js"></script>
+    <script type="module" src="js/script.js"></script>
     </body>
 </html>

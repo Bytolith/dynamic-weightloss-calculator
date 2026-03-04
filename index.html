@@ -9,8 +9,8 @@
     </head>
     <body>
     <div class="container">
-        <header class="logo">
-            <h1>DYNAMIC WEIGHT <span>CALCULATOR</span></h1>
+        <header>
+            <h1>WEIGHT LOSS <span>CALCULATOR</span></h1>
         </header>
 
         <main>
@@ -20,7 +20,7 @@
                 <div class="stats-section grid-4">
                     <!-- gender -->
                     <div class="field">
-                        <label class="subsection-label">Gender:</label>
+                        <label class="subsection-label">GENDER</label>
                         <div class="input-with-unit">
                             <button class="gender-button active" id="buttonMale" onclick="setGender('male')">Male</button>
                             <button class="gender-button" id="buttonFemale" onclick="setGender('female')">Female</button>
@@ -28,20 +28,24 @@
                     </div>
                     <!-- age -->
                     <div class="field">
-                        <label class="subsection-label">Age:</label>
+                        <label class="subsection-label">AGE</label>
                         <div class="input-with-unit">
                             <input type="range" id="ageSlider" min="15" max="80" step="1" value="25">
-                            <span id="ageVal" class="char-6 center-text">25 yrs</span>
                         </div>
+                        <span id="ageVal" class="margin-top-neg-10">25 yrs</span>
                     </div>
                     <!-- height -->
                     <div class="field span-2">
-                        <label class="subsection-label">Height:</label>
-                        <div class="input-with-unit">
-                            <input type="number" id="heightFt" min="3" max="7" value="6" oninput="updateHeight()">
-                            <span>Ft</span>
-                            <input type="number" id="heightIn" min="0" max="11" value="0" oninput="updateHeight()">
-                            <span>In</span>
+                        <label class="subsection-label">HEIGHT</label>
+                        <div class="input-with-unit grid-2">
+                            <div>
+                                <span class="subsubsection-label">FEET</span>
+                                <input type="number" id="heightFt" min="3" max="7" value="6" oninput="updateHeight()">
+                            </div>
+                            <div>
+                                <span class="subsubsection-label">INCHES</span>
+                                <input type="number" id="heightIn" min="0" max="11" value="0" oninput="updateHeight()">
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -50,44 +54,44 @@
                 <div class ="weight-goals grid-2">
                     <!-- current weight -->
                     <div class="field">
-                        <label class="subsection-label">Current Weight:</label>
+                        <label class="subsection-label">CURRENT WEIGHT:</label>
                         <div class="input-with-unit">
-                            <input type="range" id="currentWeight" min="50" max="400" step="5" value="220">
-                            <span id ="currentWeightValue" class="char-6 center-text">220 lbs</span>
+                            <input type="range" id="currentWeight" min="50" max="400" step="1" value="220">
                         </div>
+                        <span id ="currentWeightValue" class="margin-top-neg-10">220 lbs</span>
                     </div>
                     <!-- goal weight -->
                     <div class="field">
-                        <label class="subsection-label">Goal Weight:</label>
+                        <label class="subsection-label">GOAL WEIGHT:</label>
                         <div class="input-with-unit">
                             <input type="range" id="goalWeight" min="50" max="500" step="5" value="180">
-                            <span id ="goalWeightValue" class="char-6 center-text">180 lbs</span>
                         </div>
+                        <span id ="goalWeightValue" class="margin-top-neg-10">180 lbs</span>
                     </div>
                 </div>
                 <!-- Daily Stats-->
                 <label class="section-label">DAILY STATS</label>
                 <div class="daily-stats grid-3">
                     <div class="field">
-                        <label class="subsection-label">Calorie Intake:</label>
+                        <label class="subsection-label">CALORIC INTAKE:</label>
                         <div class="input-with-unit">
                             <input type="range" id="calorieIntake" min="0" max="4000" step="50" value="1500">
-                            <span id="calorieIntakeValue" class="char-9 center-text">1500 kcal</span>
                         </div>
+                        <span id="calorieIntakeValue" class="margin-top-neg-10">1500 kcal</span>
                     </div>
                     <div class="field">
-                        <label class="subsection-label">Walk Time:</label>
+                        <label class="subsection-label">WALK TIME:</label>
                         <div class="input-with-unit">
                             <input type="range" id="walkTime" min="0" max="360" step="5" value="60">
-                            <span id="walkTimeValue" class="char-9 center-text">60 min</span>
                         </div>
+                        <span id="walkTimeValue" class="margin-top-neg-10">60 min</span>
                     </div>
                     <div class="field">
-                        <label class="subsection-label">Walk Speed:</label>
+                        <label class="subsection-label">WALK SPEED:</label>
                         <div class="input-with-unit">
                             <input type="range" id="walkSpeed" min="0" max="5" step="0.5" value="1.5">
-                            <span id="walkSpeedValue" class="char-7 center-text">1.5 mph</span>
                         </div>
+                        <span id="walkSpeedValue" class="margin-top-neg-10">1.5 mph</span>
                     </div>
                 </div>
             </div>
@@ -97,26 +101,53 @@
                 <div class="results stats grid-4">
                     <!-- Resting BMR -->
                     <div class="field">
-                        <label class="subsection-label">Base BMR:</label>
-                        <span id="restingBMRValue" class="char-9 center-text">0 kcal</span>
+                        <label class="subsection-label">BASE BMR:</label>
+                        <span id="restingBMRValue" class="accent-text">0</span>
+                        <span class="subsection-label">kcal/day (Mifflin-St Jeor)<span>
                     </div>
                     <!-- Walking Calories Burned -->
                     <div class="field">
-                        <label class="subsection-label">Walking Calories Burned:</label>
-                        <span id="walkingCaloriesBurnedValue" class="char-9 center-text">0 kcal</span>
+                        <label class="subsection-label">WALKING BURN:</label>
+                        <span id="walkingCaloriesBurnedValue" class="accent-text">0</span>
+                        <span class="subsection-label">kcal/day (Ludlow & Weyand)<span>
                     </div>
                     <!-- Total Calories Burned -->
                     <div class="field">
-                        <label class="subsection-label">Total Calories Burned:</label>
-                        <span id="totalCaloriesBurnedValue" class="char-9 center-text">0 kcal</span>
+                        <label class="subsection-label">TOTAL BURN:</label>
+                        <span id="totalCaloriesBurnedValue" class="accent-text">0</span>
+                        <span class="subsection-label">kcal/day<span>
                     </div>
                     <!-- Net Calories -->
                     <div class="field">
-                        <label class="subsection-label">Net Caloric Deficit:</label>
-                        <span id="netCaloriesValue" class="char-9 center-text">0 kcal</span>
+                        <label class="subsection-label">NET DEFICIT:</label>
+                        <span id="netCaloriesValue" class="accent-text">0</span>
+                        <span class="subsection-label">kcal/day(+ = losing)<span>
                     </div>
                 </div>
-                <canvas id="myChart" class="field"></canvas>
+                <div class="grid-3">
+                    <!-- AVG Daylie Deficit -->
+                    <div class="field">
+                        <span id="avgDailyDeficitValue" class="results-text">0</span>
+                        <label class="subsection-label center-text">AVG DAILY DEFICIT</label>
+                    </div>
+                    <!-- Days To Goal -->
+                    <div class="field">
+                        <span id="daysToGoalValue" class="results-text accent-text">0</span>
+                        <label class="subsection-label center-text">DAYS TO GOAL</label>
+                    </div>
+                    <!-- LBS to Lose -->
+                    <div class="field">
+                        <span id="lbsToLoseValue" class="results-text">0</span>
+                        <label class="subsection-label center-text">LBS TO LOSE</label>
+                    </div>
+                </div>
+
+
+                <div class="field margin-top-20">
+                    <label class="subsection-label">WEIGHT PROJECTION OVER TIME</label>
+                    <canvas id="myChart"></canvas>
+
+                </div>
         </main>
     </div>
     <script type="module" src="js/script.js"></script>

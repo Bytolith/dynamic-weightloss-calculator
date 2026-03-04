@@ -91,21 +91,10 @@ function LudlowWeyand(speed, height, weight, time) {
     let caloriesBurned = vo2 * weight_kg * time * 0.005;
 
     //Subtract resting because it's already accounted for in bmr
-    const restingKcalPerMin = 3.5 * weight_kg * 0.005;
-    caloriesBurned = Math.max(0, caloriesBurned - restingKcalPerMin * time);
+    const restingCaloriesPerMin = 3.5 * weight_kg * 0.005;
+    caloriesBurned = Math.max(0, caloriesBurned - restingCaloriesPerMin * time);
 
     return caloriesBurned;
-}
-
-function walkingSpeedToMet(mph) {
-    utils.assert(typeof mph === "number" && mph >= 0, "mph must be a non-negative finite number.");
-
-    if (mph <= 1.9) return 2.8;
-    if (mph <= 2.4) return 3.0;
-    if (mph <= 2.9) return 3.5;
-    if (mph <= 3.4) return 4.3;
-    if (mph <= 3.9) return 5.0;
-    return 6.0;
 }
 
 
@@ -206,16 +195,21 @@ function updateChart() {
     chart.update();
 }
 
-window.setGender = setGender;
-window.updateHeight = updateHeight;
+function main(){
+    window.setGender = setGender;
+    window.updateHeight = updateHeight;
+    
+    utils.initSlider('ageSlider', 'ageVal', 'yrs', false, function(val){age = val; updateResults()});
+    utils.initSlider('currentWeight', 'currentWeightValue', 'lbs', false, function(val){currentWeight = val; updateResults()});
+    utils.initSlider('goalWeight', 'goalWeightValue', 'lbs', false, function(val){goalWeight = val; updateResults()});
+    utils.initSlider('calorieIntake', 'calorieIntakeValue', 'kcal', false, function(val){calorieIntake = val; updateResults()});
+    utils.initSlider('walkTime', 'walkTimeValue', 'min', false, function(val){walkTime = val; updateResults()});
+    utils.initSlider('walkSpeed', 'walkSpeedValue', 'mph', true, function(val){walkSpeed = val; updateResults()});
+    
+    updateResults();
+}
 
-utils.initSlider('ageSlider', 'ageVal', 'yrs', false, function(val){age = val; updateResults()});
-utils.initSlider('currentWeight', 'currentWeightValue', 'lbs', false, function(val){currentWeight = val; updateResults()});
-utils.initSlider('goalWeight', 'goalWeightValue', 'lbs', false, function(val){goalWeight = val; updateResults()});
-utils.initSlider('calorieIntake', 'calorieIntakeValue', 'kcal', false, function(val){calorieIntake = val; updateResults()});
-utils.initSlider('walkTime', 'walkTimeValue', 'min', false, function(val){walkTime = val; updateResults()});
-utils.initSlider('walkSpeed', 'walkSpeedValue', 'mph', true, function(val){walkSpeed = val; updateResults()});
+main();
 
-updateResults();
 
 

@@ -218,6 +218,9 @@ input[type="range"]::-moz-range-thumb {
     text-align: center;
     color: var(--text);
 }
+.results-text.accent-text {
+    color: var(--accent);
+}
 
 /* Utility */
 .grid-4 {
